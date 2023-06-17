@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>LRU缓存的实现</title>
+      <link href="/2023/06/17/LRU%E7%BC%93%E5%AD%98%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+      <url>/2023/06/17/LRU%E7%BC%93%E5%AD%98%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="LRU缓存的实现"><a href="#LRU缓存的实现" class="headerlink" title="LRU缓存的实现"></a>LRU缓存的实现</h1><p>面试时有可能会被问到LRU的具体实现。在 Python 语言中，有一种结合了哈希表与双向链表的数据结构 OrderedDict，只需要短短的几行代码就可以完成本题。在 Java 语言中，同样有类似的数据结构 LinkedHashMap。但这些做法都不会符合面试官的要求，因此我们需要了解LRU底层的原理。</p><p>LRU 缓存机制可以通过哈希表辅以双向链表实现，我们用一个哈希表和一个双向链表维护所有在缓存中的键值对。</p><pre><code>双向链表按照被使用的顺序存储了这些键值对，靠近头部的键值对是最近使用的，而靠近尾部的键值对是最久未使用的。哈希表即为普通的哈希映射（HashMap），通过缓存数据的键映射到其在双向链表中的位置。</code></pre><p>这样以来，我们首先使用哈希表进行定位，找出缓存项在双向链表中的位置，随后将其移动到双向链表的头部，即可在 O(1) 的时间内完成 get 或者 put 操作。具体的方法如下：</p><pre><code>对于 get 操作，首先判断 key 是否存在：    如果 key 不存在，则返回 −1；    如果 key 存在，则 key 对应的节点是最近被使用的节点。通过哈希表定位到该节点在双向链表中的位置，并将其移动到双向链表的头部，最后返回该节点的值。对于 put 操作，首先判断 key 是否存在：    如果 key 不存在，使用 key 和 value 创建一个新的节点，在双向链表的头部添加该节点，并将 key 和该节点添加进哈希表中。然后判断双向链表的节点数是否超出容量，如果超出容量，则删除双向链表的尾部节点，并删除哈希表中对应的项；    如果 key 存在，则与 get 操作类似，先通过哈希表定位，再将对应的节点的值更新为 value，并将该节点移到双向链表的头部。</code></pre><p>上述各项操作中，访问哈希表的时间复杂度为 O(1)，在双向链表的头部添加节点、在双向链表的尾部删除节点的复杂度也为 O(1)。而将一个节点移到双向链表的头部，可以分成「删除该节点」和「在双向链表的头部添加节点」两步操作，都可以在 O(1) 时间内完成。</p><p>下面给出Java代码的实现：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> Node prev;</span><br><span class="line">        <span class="keyword">public</span> Node next;</span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> key;</span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.prev = <span class="literal">null</span>;</span><br><span class="line">            <span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">            <span class="built_in">this</span>.key = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">this</span>.value = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.prev = <span class="literal">null</span>;</span><br><span class="line">            <span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">            <span class="built_in">this</span>.key = key;</span><br><span class="line">            <span class="built_in">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(Node prev, Node next, <span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.prev = prev;</span><br><span class="line">            <span class="built_in">this</span>.next = next;</span><br><span class="line">            <span class="built_in">this</span>.key = key;</span><br><span class="line">            <span class="built_in">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> capacity;</span><br><span class="line">    <span class="comment">// map存的是Node的引用，所以Node更新的时候map里面的值也会跟着更新</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, Node&gt; map;</span><br><span class="line">    <span class="keyword">private</span> Node dummyHead;</span><br><span class="line">    <span class="keyword">private</span> Node dummyTail;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LRUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.capacity = capacity;</span><br><span class="line">        <span class="built_in">this</span>.size = <span class="number">0</span>;</span><br><span class="line">        map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer, Node&gt;();</span><br><span class="line">        dummyHead = <span class="keyword">new</span> <span class="title class_">Node</span>();</span><br><span class="line">        dummyTail = <span class="keyword">new</span> <span class="title class_">Node</span>();</span><br><span class="line">        dummyHead.next = dummyTail;</span><br><span class="line">        dummyTail.prev = dummyHead;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">node</span> <span class="operator">=</span> map.get(key);</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">null</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        moveToHead(node);</span><br><span class="line">        <span class="keyword">return</span> node.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">node</span> <span class="operator">=</span> map.get(key);</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">null</span>) &#123;</span><br><span class="line">            size++;</span><br><span class="line">            map.put(key, addToHead(<span class="keyword">new</span> <span class="title class_">Node</span>(key, value)));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node.value = value;</span><br><span class="line">            moveToHead(node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (size &gt; capacity) &#123;</span><br><span class="line">            deleteFromTail();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">deleteNode</span><span class="params">(Node node)</span> &#123;</span><br><span class="line">        node.prev.next = node.next;</span><br><span class="line">        node.next.prev = node.prev;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Node <span class="title function_">addToHead</span><span class="params">(Node node)</span> &#123;</span><br><span class="line">        node.prev = dummyHead;</span><br><span class="line">        node.next = dummyHead.next;</span><br><span class="line">        dummyHead.next.prev = node;</span><br><span class="line">        dummyHead.next = node;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">moveToHead</span><span class="params">(Node node)</span> &#123;</span><br><span class="line">        deleteNode(node);</span><br><span class="line">        addToHead(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">deleteFromTail</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">key</span> <span class="operator">=</span> dummyTail.prev.key;</span><br><span class="line">            deleteNode(dummyTail.prev);</span><br><span class="line">            map.remove(key);</span><br><span class="line">            size--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2023/06/17/hello-world/"/>
+      <url>/2023/06/17/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Hello World！</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>test</title>
+      <link href="/2023/06/17/test/"/>
+      <url>/2023/06/17/test/</url>
+      
+        <content type="html"><![CDATA[<p>本帖是一个测试贴</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>archives</title>
+      <link href="/archives/index.html"/>
+      <url>/archives/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一起看电影吧！</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="此频道暂未开发-gt-lt"><a href="#此频道暂未开发-gt-lt" class="headerlink" title="此频道暂未开发&gt;_&lt;"></a>此频道暂未开发&gt;_&lt;</h1>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>个人简历</title>
+      <link href="/cv/index.html"/>
+      <url>/cv/index.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h1><ul><li>姓名：thx</li><li>手机：保密</li><li>邮箱：2508496612@qq.com</li><li>地址：天津市津南区</li></ul><h1 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h1><h2 id="天津大学（2019年-2024年）"><a href="#天津大学（2019年-2024年）" class="headerlink" title="天津大学（2019年~2024年）"></a>天津大学（2019年~2024年）</h2><ul><li>专业：计算机科学与技术</li><li>学位：本科</li><li>主修课程：程序设计原理、数据结构、算法设计与分析、离散数学、操作系统、数据库原理、计算机网络、计算机组成原理、软件工程、编译原理</li></ul><h1 id="实习经历"><a href="#实习经历" class="headerlink" title="实习经历"></a>实习经历</h1><h2 id="中国汽车技术研究中心-设计院-（2023年5月-至今）"><a href="#中国汽车技术研究中心-设计院-（2023年5月-至今）" class="headerlink" title="中国汽车技术研究中心 设计院 （2023年5月~至今）"></a>中国汽车技术研究中心 设计院 （2023年5月~至今）</h2><ul><li>职位：Java后端开发实习生</li><li>工作内容：数据迁移、代码重构、接口开发</li></ul><h1 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h1><h2 id="TCP在应用层的设计和实现-（2022年7月-2022年9月）"><a href="#TCP在应用层的设计和实现-（2022年7月-2022年9月）" class="headerlink" title="TCP在应用层的设计和实现 （2022年7月~2022年9月）"></a>TCP在应用层的设计和实现 （2022年7月~2022年9月）</h2><ul><li>项目描述：本项目实现了基于UDP的用户层TCP协议，完成了Socket API的实现，协议整体的设计和实现参考了RFC793文档中对TCP实现的说明。</li><li>项目亮点：<br>  在用户层模拟部分linux内核行为，如socket哈希表的维护、全连接与半连接队列、TCP报文段的处理等<br>  完成了底层协议设计，采用C语言来实现TCP的三次握手、四次挥手、流量控制和拥塞控制等功能<br>  在可靠数据传输中主要采用滑动窗口和超时重传机制来实现，并以延时发送ACK来优化传输速度<br>  在Linux环境下采用多线程编程，实现服务端和客户端之间的单工通信，峰值吞吐率可达到5Mbps，平均吞吐率在1Mbps左右，具有良好的稳定性</li></ul><h2 id="基于淘宝逆向设计的北洋商城系统-（2022年10月-2023年1月）"><a href="#基于淘宝逆向设计的北洋商城系统-（2022年10月-2023年1月）" class="headerlink" title="基于淘宝逆向设计的北洋商城系统 （2022年10月~2023年1月）"></a>基于淘宝逆向设计的北洋商城系统 （2022年10月~2023年1月）</h2><ul><li>项目描述：本项目是仿照淘宝和拼多多实现的在线商城系统，由商户后台和移动端前台两部分构成，包含用户注册、用户登录、添加商品、浏览商品、商品详情页、个人主页、余额充值、购买商品、查看订单等模块。</li><li>技术栈：Vue2、SpringBoot、LomBok、HuTool、MyBatis、MySQL、Redis</li><li>主要工作：<br>  分析各个实体的关系，完成数据库总体设计，并绘制ER图<br>  负责后端框架的搭建，完成业务层对数据库的操作，实现常用公共字段的自动填充<br>  实现用户管理、商品管理、购物车管理和订单管理相关功能的实现<br>  基于Redis对热点查询字段进行缓存，提高系统的并发能力<br>  使用Nginx作为Http服务器，部署静态资源，实现反向管理和负载均衡</li></ul><h1 id="技能清单"><a href="#技能清单" class="headerlink" title="技能清单"></a>技能清单</h1><ul><li>编程基础：数据结构与算法、操作系统、计算机网络、面向对象编程思想、设计模式</li><li>编程语言：Java（熟练）、C/C++（熟悉）、Python（了解）、JavaScript（了解）</li><li>后端框架：Spring、Mybatis/Mybatis-plus、Spring MVC、SpringBoot、SpringCloud</li><li>前端：html、css、vue、jQuery</li><li>数据库：MySQL、Oracle</li><li>中间件：redis、nacos、rabbitmq</li><li>开发工具：IDEA、VS Code、Navicat、Postman、VMware、Xshell</li><li>虚拟机：Ubuntu、CentOS、</li><li>容器化技术：Docker</li></ul>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>It&#39;s music time now!</title>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="下面是自己编的一些小曲，请收听-o"><a href="#下面是自己编的一些小曲，请收听-o" class="headerlink" title="下面是自己编的一些小曲，请收听^o^"></a>下面是自己编的一些小曲，请收听^o^</h1><!-- - [Song 1](my-songs/春日游.m4a)- [Song 2](my-songs/song2.mp3) --><style>  .song-item {    display: flex;    align-items: center;    margin-bottom: 10px;  }  .song-item h2 {    margin-right: 10px;    font-size: 16px;    line-height: 1;  }  .song-item audio {    height: 30px;    width: 150px;  }</style><div class="song-item">  <h2>晨曦</h2>  <audio controls>    <source src="my-songs/晨曦.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>春日游</h2>  <audio controls>    <source src="my-songs/春日游.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>今日晴空万里</h2>  <audio controls>    <source src="my-songs/今日晴空万里.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>夕阳、草房子与风车</h2>  <audio controls>    <source src="my-songs/夕阳、草房子与风车.mp3" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>湖心月纹</h2>  <audio controls>    <source src="my-songs/湖心月纹.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><script>  const audioPlayer = document.querySelector('#myAudioPlayer');  audioPlayer.addEventListener('play', () => {    console.log('音乐开始播放');  });  audioPlayer.addEventListener('pause', () => {    console.log('音乐暂停播放');  });</script>]]></content>
+      
+    </entry>
+    
+    
+  
+</search>
