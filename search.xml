@@ -46,9 +46,9 @@
     
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -60,6 +60,17 @@
       <title>archives</title>
       <link href="/archives/index.html"/>
       <url>/archives/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -90,9 +101,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -106,17 +117,6 @@
       <url>/music/index.html</url>
       
         <content type="html"><![CDATA[<h1 id="下面是自己编的一些小曲，请收听-o"><a href="#下面是自己编的一些小曲，请收听-o" class="headerlink" title="下面是自己编的一些小曲，请收听^o^"></a>下面是自己编的一些小曲，请收听^o^</h1><!-- - [Song 1](my-songs/春日游.m4a)- [Song 2](my-songs/song2.mp3) --><style>  .song-item {    display: flex;    align-items: center;    margin-bottom: 10px;  }  .song-item h2 {    margin-right: 10px;    font-size: 16px;    line-height: 1;  }  .song-item audio {    height: 30px;    width: 150px;  }</style><div class="song-item">  <h2>晨曦</h2>  <audio controls>    <source src="my-songs/晨曦.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>春日游</h2>  <audio controls>    <source src="my-songs/春日游.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>今日晴空万里</h2>  <audio controls>    <source src="my-songs/今日晴空万里.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>夕阳、草房子与风车</h2>  <audio controls>    <source src="my-songs/夕阳、草房子与风车.mp3" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>湖心月纹</h2>  <audio controls>    <source src="my-songs/湖心月纹.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><script>  const audioPlayer = document.querySelector('#myAudioPlayer');  audioPlayer.addEventListener('play', () => {    console.log('音乐开始播放');  });  audioPlayer.addEventListener('pause', () => {    console.log('音乐暂停播放');  });</script>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
