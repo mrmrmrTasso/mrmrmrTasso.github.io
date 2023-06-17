@@ -68,22 +68,11 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>个人简历</title>
+      <link href="/cv/index.html"/>
+      <url>/cv/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h1><ul><li>姓名：thx</li><li>手机：保密</li><li>邮箱：2508496612@qq.com</li><li>地址：天津市津南区</li></ul><h1 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h1><h2 id="天津大学（2019年-2024年）"><a href="#天津大学（2019年-2024年）" class="headerlink" title="天津大学（2019年~2024年）"></a>天津大学（2019年~2024年）</h2><ul><li>专业：计算机科学与技术</li><li>学位：本科</li><li>主修课程：程序设计原理、数据结构、算法设计与分析、离散数学、操作系统、数据库原理、计算机网络、计算机组成原理、软件工程、编译原理</li></ul><h1 id="实习经历"><a href="#实习经历" class="headerlink" title="实习经历"></a>实习经历</h1><h2 id="中国汽车技术研究中心-设计院-（2023年5月-至今）"><a href="#中国汽车技术研究中心-设计院-（2023年5月-至今）" class="headerlink" title="中国汽车技术研究中心 设计院 （2023年5月~至今）"></a>中国汽车技术研究中心 设计院 （2023年5月~至今）</h2><ul><li>职位：Java后端开发实习生</li><li>工作内容：数据迁移、代码重构、接口开发</li></ul><h1 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h1><h2 id="TCP在应用层的设计和实现-（2022年7月-2022年9月）"><a href="#TCP在应用层的设计和实现-（2022年7月-2022年9月）" class="headerlink" title="TCP在应用层的设计和实现 （2022年7月~2022年9月）"></a>TCP在应用层的设计和实现 （2022年7月~2022年9月）</h2><ul><li>项目描述：本项目实现了基于UDP的用户层TCP协议，完成了Socket API的实现，协议整体的设计和实现参考了RFC793文档中对TCP实现的说明。</li><li>项目亮点：<br>  在用户层模拟部分linux内核行为，如socket哈希表的维护、全连接与半连接队列、TCP报文段的处理等<br>  完成了底层协议设计，采用C语言来实现TCP的三次握手、四次挥手、流量控制和拥塞控制等功能<br>  在可靠数据传输中主要采用滑动窗口和超时重传机制来实现，并以延时发送ACK来优化传输速度<br>  在Linux环境下采用多线程编程，实现服务端和客户端之间的单工通信，峰值吞吐率可达到5Mbps，平均吞吐率在1Mbps左右，具有良好的稳定性</li></ul><h2 id="基于淘宝逆向设计的北洋商城系统-（2022年10月-2023年1月）"><a href="#基于淘宝逆向设计的北洋商城系统-（2022年10月-2023年1月）" class="headerlink" title="基于淘宝逆向设计的北洋商城系统 （2022年10月~2023年1月）"></a>基于淘宝逆向设计的北洋商城系统 （2022年10月~2023年1月）</h2><ul><li>项目描述：本项目是仿照淘宝和拼多多实现的在线商城系统，由商户后台和移动端前台两部分构成，包含用户注册、用户登录、添加商品、浏览商品、商品详情页、个人主页、余额充值、购买商品、查看订单等模块。</li><li>技术栈：Vue2、SpringBoot、LomBok、HuTool、MyBatis、MySQL、Redis</li><li>主要工作：<br>  分析各个实体的关系，完成数据库总体设计，并绘制ER图<br>  负责后端框架的搭建，完成业务层对数据库的操作，实现常用公共字段的自动填充<br>  实现用户管理、商品管理、购物车管理和订单管理相关功能的实现<br>  基于Redis对热点查询字段进行缓存，提高系统的并发能力<br>  使用Nginx作为Http服务器，部署静态资源，实现反向管理和负载均衡</li></ul><h1 id="技能清单"><a href="#技能清单" class="headerlink" title="技能清单"></a>技能清单</h1><ul><li>编程基础：数据结构与算法、操作系统、计算机网络、面向对象编程思想、设计模式</li><li>编程语言：Java（熟练）、C/C++（熟悉）、Python（了解）、JavaScript（了解）</li><li>后端框架：Spring、Mybatis/Mybatis-plus、Spring MVC、SpringBoot、SpringCloud</li><li>前端：html、css、vue、jQuery</li><li>数据库：MySQL、Oracle</li><li>中间件：redis、nacos、rabbitmq</li><li>开发工具：IDEA、VS Code、Navicat、Postman、VMware、Xshell</li><li>虚拟机：Ubuntu、CentOS、</li><li>容器化技术：Docker</li></ul>]]></content>
       
     </entry>
     
@@ -101,11 +90,11 @@
     
     
     <entry>
-      <title>个人简历</title>
-      <link href="/cv/index.html"/>
-      <url>/cv/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<h1 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h1><ul><li>姓名：thx</li><li>手机：保密</li><li>邮箱：2508496612@qq.com</li><li>地址：天津市津南区</li></ul><h1 id="教育经历"><a href="#教育经历" class="headerlink" title="教育经历"></a>教育经历</h1><h2 id="天津大学（2019年-2024年）"><a href="#天津大学（2019年-2024年）" class="headerlink" title="天津大学（2019年~2024年）"></a>天津大学（2019年~2024年）</h2><ul><li>专业：计算机科学与技术</li><li>学位：本科</li><li>主修课程：程序设计原理、数据结构、算法设计与分析、离散数学、操作系统、数据库原理、计算机网络、计算机组成原理、软件工程、编译原理</li></ul><h1 id="实习经历"><a href="#实习经历" class="headerlink" title="实习经历"></a>实习经历</h1><h2 id="中国汽车技术研究中心-设计院-（2023年5月-至今）"><a href="#中国汽车技术研究中心-设计院-（2023年5月-至今）" class="headerlink" title="中国汽车技术研究中心 设计院 （2023年5月~至今）"></a>中国汽车技术研究中心 设计院 （2023年5月~至今）</h2><ul><li>职位：Java后端开发实习生</li><li>工作内容：数据迁移、代码重构、接口开发</li></ul><h1 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h1><h2 id="TCP在应用层的设计和实现-（2022年7月-2022年9月）"><a href="#TCP在应用层的设计和实现-（2022年7月-2022年9月）" class="headerlink" title="TCP在应用层的设计和实现 （2022年7月~2022年9月）"></a>TCP在应用层的设计和实现 （2022年7月~2022年9月）</h2><ul><li>项目描述：本项目实现了基于UDP的用户层TCP协议，完成了Socket API的实现，协议整体的设计和实现参考了RFC793文档中对TCP实现的说明。</li><li>项目亮点：<br>  在用户层模拟部分linux内核行为，如socket哈希表的维护、全连接与半连接队列、TCP报文段的处理等<br>  完成了底层协议设计，采用C语言来实现TCP的三次握手、四次挥手、流量控制和拥塞控制等功能<br>  在可靠数据传输中主要采用滑动窗口和超时重传机制来实现，并以延时发送ACK来优化传输速度<br>  在Linux环境下采用多线程编程，实现服务端和客户端之间的单工通信，峰值吞吐率可达到5Mbps，平均吞吐率在1Mbps左右，具有良好的稳定性</li></ul><h2 id="基于淘宝逆向设计的北洋商城系统-（2022年10月-2023年1月）"><a href="#基于淘宝逆向设计的北洋商城系统-（2022年10月-2023年1月）" class="headerlink" title="基于淘宝逆向设计的北洋商城系统 （2022年10月~2023年1月）"></a>基于淘宝逆向设计的北洋商城系统 （2022年10月~2023年1月）</h2><ul><li>项目描述：本项目是仿照淘宝和拼多多实现的在线商城系统，由商户后台和移动端前台两部分构成，包含用户注册、用户登录、添加商品、浏览商品、商品详情页、个人主页、余额充值、购买商品、查看订单等模块。</li><li>技术栈：Vue2、SpringBoot、LomBok、HuTool、MyBatis、MySQL、Redis</li><li>主要工作：<br>  分析各个实体的关系，完成数据库总体设计，并绘制ER图<br>  负责后端框架的搭建，完成业务层对数据库的操作，实现常用公共字段的自动填充<br>  实现用户管理、商品管理、购物车管理和订单管理相关功能的实现<br>  基于Redis对热点查询字段进行缓存，提高系统的并发能力<br>  使用Nginx作为Http服务器，部署静态资源，实现反向管理和负载均衡</li></ul><h1 id="技能清单"><a href="#技能清单" class="headerlink" title="技能清单"></a>技能清单</h1><ul><li>编程基础：数据结构与算法、操作系统、计算机网络、面向对象编程思想、设计模式</li><li>编程语言：Java（熟练）、C/C++（熟悉）、Python（了解）、JavaScript（了解）</li><li>后端框架：Spring、Mybatis/Mybatis-plus、Spring MVC、SpringBoot、SpringCloud</li><li>前端：html、css、vue、jQuery</li><li>数据库：MySQL、Oracle</li><li>中间件：redis、nacos、rabbitmq</li><li>开发工具：IDEA、VS Code、Navicat、Postman、VMware、Xshell</li><li>虚拟机：Ubuntu、CentOS、</li><li>容器化技术：Docker</li></ul>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
@@ -117,6 +106,17 @@
       <url>/music/index.html</url>
       
         <content type="html"><![CDATA[<h1 id="下面是自己编的一些小曲，请收听-o"><a href="#下面是自己编的一些小曲，请收听-o" class="headerlink" title="下面是自己编的一些小曲，请收听^o^"></a>下面是自己编的一些小曲，请收听^o^</h1><!-- - [Song 1](my-songs/春日游.m4a)- [Song 2](my-songs/song2.mp3) --><style>  .song-item {    display: flex;    align-items: center;    margin-bottom: 10px;  }  .song-item h2 {    margin-right: 10px;    font-size: 16px;    line-height: 1;  }  .song-item audio {    height: 30px;    width: 150px;  }</style><div class="song-item">  <h2>晨曦</h2>  <audio controls>    <source src="my-songs/晨曦.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>春日游</h2>  <audio controls>    <source src="my-songs/春日游.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>今日晴空万里</h2>  <audio controls>    <source src="my-songs/今日晴空万里.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>夕阳、草房子与风车</h2>  <audio controls>    <source src="my-songs/夕阳、草房子与风车.mp3" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><div class="song-item">  <h2>湖心月纹</h2>  <audio controls>    <source src="my-songs/湖心月纹.m4a" type="audio/mpeg">    Your browser does not support the audio element.  </audio></div><script>  const audioPlayer = document.querySelector('#myAudioPlayer');  audioPlayer.addEventListener('play', () => {    console.log('音乐开始播放');  });  audioPlayer.addEventListener('pause', () => {    console.log('音乐暂停播放');  });</script>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
